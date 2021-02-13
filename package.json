@@ -1,0 +1,15 @@
+{
+  "name": "boardgamebot",
+  "version": "1.0.0",
+  "description": "local bot for list of tts games we have",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0"
+  }
+}
