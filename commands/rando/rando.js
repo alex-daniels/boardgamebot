@@ -65,7 +65,7 @@ module.exports = {
         `Tsuro | 2-8 | 15 | :u7981:`,
         `A War of Whispers | 2-4 | 60 | :b:`];
     
-        return games[getRandomNumber(games.length)];
+        return games[this.getRandomNumber(games.length)];
     },
     
      getRandomCoopGame: function() {
@@ -77,7 +77,7 @@ module.exports = {
         `Sub Terra | 1-6 | 60 | :wheel_of_dharma:`, 
         `The Captain is Dead | 2-7 | 90 | :star_of_david:`];
     
-        return coop[getRandomNumber(coop.length)];
+        return coop[this.getRandomNumber(coop.length)];
     },
     
      getRandomCoopAgainst: function() {
@@ -90,19 +90,19 @@ module.exports = {
         `Scotland Yard | 3-6 | 45 | :scotland:`, 
         `The Thing | 4-8 | 120 :twisted_rightwards_arrows:`];
        
-        return coopAgainst[getRandomNumber(coopAgainst.length)];
+        return coopAgainst[this.getRandomNumber(coopAgainst.length)];
     },
     
      getRandomTeamGame: function() {
         let teams = [`Codenames | 2-8 | 15 :accept:`];
     
-        return teams[getRandomNumber(teams.length)];
+        return teams[this.getRandomNumber(teams.length)];
     },
     
      getRandomTimeWasterGame : function() {
         let timeWasters = [`Trivial Pursuit (Star Wars/LOTR/Regular/Genus) :radioactive:`];
     
-        return timeWasters[getRandomNumber(timeWasters.length)];
+        return timeWasters[this.getRandomNumber(timeWasters.length)];
     },
     
      getRandomVersusGame: function() {
@@ -116,7 +116,7 @@ module.exports = {
         `Tsuro | 2-8 | 15 | :u7981:`,
         `A War of Whispers | 2-4 | 60 | :b:`]
     
-        return versus[getRandomNumber(versus.length)];
+        return versus[this.getRandomNumber(versus.length)];
     },
     
      getRandomNumber: function(arraySize) {
