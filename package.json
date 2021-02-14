@@ -11,5 +11,9 @@
   "devDependencies": {
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0"
+  },
+  "dependencies": {
+    "sequelize": "^6.5.0",
+    "sqlite3": "^5.0.1"
   }
 }
