@@ -280,6 +280,7 @@ module.exports = {
             console.log(`added ${gameToAdd.name}`);
         });
         this.initRan = true;
+        message.reply('Populated the database')
     },
     
     async deleteAll(message) {
