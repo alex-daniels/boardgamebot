@@ -17,7 +17,7 @@ module.exports = {
         !Boardgames delete [game] -> removes a game. replace [game] with the game title in ""
         **Example: !Boardgames delete "Eldritch Horror"**\n
         !Boardgames poll game1 game2 -> creates a reaction based poll of two games.
-        **Example: !Boardgames "Eldritch Horror" "The Captain is Dead"
+        **Example: !Boardgames poll "Eldritch Horror" "The Captain is Dead"
         `;
     }
 };
