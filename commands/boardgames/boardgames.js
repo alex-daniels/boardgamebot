@@ -219,7 +219,7 @@ module.exports = {
             coop: {
                 gameArray: [
                     ['Forbidden Island', '2', '4', '30', ':peace:'],
-                    ['Gloomhaven', '1','4', '120', ':cross'],
+                    ['Gloomhaven', '1','4', '120', ':cross:'],
                     ['Gloomhaven: Jaws of the Lion', '1','4', '120', ':star_and_crescent:'],
                     ['Horrified', '1','5', '60', ':om_symbol:'],
                     ['Spirit Island', '1','4', '90', ':six_pointed_star:'],
@@ -231,7 +231,7 @@ module.exports = {
                 gameArray: [
                     ['Battlestar Galactica', '3','6', '180', ':arrow_heading_up:'],
                     [`Betrayal at Baldur's Game`, '3','6', '60', ':arrows_clockwise:'],
-                    ['Betrayl at House on the Hill', '3','6', '60', ':arrows_counterclockwise:'],
+                    ['Betrayal at House on the Hill', '3','6', '60', ':arrows_counterclockwise:'],
                     ['Betrayal Legacy', '3','5', '90', ':repeat_one:'],
                     ['Betrayl at Mystery Mansion', '3','5', '50', ':repeat:'],
                     ['The Menace Among Us', '4','8', '60', ':arrow_heading_down:'],
