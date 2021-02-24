@@ -1,3 +1,5 @@
+const { DiscordAPIError } = require("discord.js");
+
 module.exports = {
     name: 'boardgames',
     description: 'List current configured board games',
@@ -11,7 +13,7 @@ module.exports = {
         this.op = op;
     },
 
-    execute(message, args) {
+    execute(message, args, client) {
         if (args.length > 0){
             if (args.length == 1) {
                 switch (args[0]) {
@@ -42,11 +44,13 @@ module.exports = {
                     case 'rando':
                         this.getRandomGame(message);
                         break;
+                    case 'dev':
+                        break;
                     default:
                         break;
                 }
             } else if (args.length == 2) {
-                if (args[0] != 'add' && args[0] != 'game' && args[0] != 'delete' && args[0] != 'min' && args[0] != 'max') {
+                if (args[0] != 'add' && args[0] != 'game' && args[0] != 'delete' && args[0] != 'min' && args[0] != 'max' && args[0] != 'random' && args[0] != 'rando' && args[0] != 'pickforme') {
                     switch (args[1]) {
                         case 'against': 
                             this.getGamesByType('co-op-against', message);
@@ -80,6 +84,14 @@ module.exports = {
                     this.getMinPlayersGame(args[1], message);
                 } else if (args[0] == 'max') {
                     this.getMaxPlayersGame(args[1], message);
+                } else if (args[0] == 'random' || args[0] == 'rando' || args[0] == 'pickforme') {
+                    this.getRandomGame(message, args[1]);
+                }
+            } else if (args.length == 3) {
+                if (args[0] == 'poll') {
+                    const gameOne = args[1];
+                    const gameTwo = args[2];
+                    this.getTwoGamesWithPoll(gameOne, gameTwo, message, client);
                 }
             }
         } else {
@@ -133,16 +145,20 @@ module.exports = {
     },
 
     async getAllGames(message) {
-        const games = await this.database.findAll();
+        const games = await this.database.findAll({ order: [['type', 'asc']]});
         this.prettifyMessage(message, games);
     },
 
-    async getRandomGame(message) {
-        const games = await this.database.findAll();
-        const randomGame = games[this.getRandomNumber(games.length)];
-        console.log(randomGame);
+    async getRandomGame(message, type = false) {
+        let randomGame = {};
+        if (!type) {
+            const games = await this.database.findAll();
+            randomGame = games[this.getRandomNumber(games.length)];
+        } else {
+            const games = await this.database.findAll({ where: {type:type}});
+            randomGame = games[this.getRandomNumber(games.length)];
+        }
         this.prettifyMessage(message, randomGame, true);
-
     },
 
     async getMinPlayersGame(numberOfPlayers, message) {
@@ -163,6 +179,29 @@ module.exports = {
             single = true;
         }
         this.prettifyMessage(message, game, single);
+    },
+
+    async getTwoGamesWithPoll(gameOne, gameTwo, message, client) {
+        gameOne = gameOne.replace(/['"]+/g,'');
+        gameTwo = gameTwo.replace(/['"]+/g,'');
+        
+        const optionOne = await this.database.findAll({ where: { name: gameOne }});
+        const optionTwo = await this.database.findAll({ where: { name: gameTwo }});
+
+        if (optionOne.length && optionTwo.length) {
+            let results = '';
+            results += `:one: -> ${optionOne[0].get('name')} | ${optionOne[0].get('players_min')}-${optionOne[0].get('players_max')} | ${optionOne[0].get('type')} | ${optionOne[0].get('time_to_play')} | ${optionOne[0].get('icon')}\n`;
+            results += `:two: -> ${optionTwo[0].get('name')} | ${optionTwo[0].get('players_min')}-${optionTwo[0].get('players_max')} | ${optionTwo[0].get('type')} | ${optionTwo[0].get('time_to_play')} | ${optionTwo[0].get('icon')}\n`;
+        
+            message.channel.send(`**Starting a poll please react with your choice**:\n${results}`).then(function (message) {
+                message.react('1️⃣').then(() => message.react('2️⃣'));
+            });
+        } else if (!optionOne.length) {
+            return message.reply(`${gameOne} doesn't exist`);
+        } else if (!optionTwo.length) {
+            return message.reply(`${gameTwo} doesn't exist`);
+        }
+
     },
 
     async initAddGames(message) {

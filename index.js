@@ -69,7 +69,7 @@ client.on('message', async message => {
     if (!command) return;
 
     try {
-        command.execute(message, args) 
+        command.execute(message, args, client) 
     } catch (error) {
         console.error(error);
         message.reply('Error executing command');
